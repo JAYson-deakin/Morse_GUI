@@ -1,0 +1,98 @@
+import RPi.GPIO as GPIO
+import time
+from tkinter import *
+import tkinter.font as TkFont
+
+CODE = {' ': ' ',
+        "'": '.----.',
+        '(': '-.--.-',
+        ')': '-.--.-',
+        ',': '--..--',
+        '-': '-....-',
+        '.': '.-.-.-',
+        '/': '-..-.',
+        '0': '-----',
+        '1': '.----',
+        '2': '..---',
+        '3': '...--',
+        '4': '....-',
+        '5': '.....',
+        '6': '-....',
+        '7': '--...',
+        '8': '---..',
+        '9': '----.',
+        ':': '---...',
+        ';': '-.-.-.',
+        '?': '..--..',
+        'A': '.-',
+        'B': '-...',
+        'C': '-.-.',
+        'D': '-..',
+        'E': '.',
+        'F': '..-.',
+        'G': '--.',
+        'H': '....',
+        'I': '..',
+        'J': '.---',
+        'K': '-.-',
+        'L': '.-..',
+        'M': '--',
+        'N': '-.',
+        'O': '---',
+        'P': '.--.',
+        'Q': '--.-',
+        'R': '.-.',
+        'S': '...',
+        'T': '-',
+        'U': '..-',
+        'V': '...-',
+        'W': '.--',
+        'X': '-..-',
+        'Y': '-.--',
+        'Z': '--..',
+        '_': '..--.-'}
+ledPin=17
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(ledPin,GPIO.OUT)
+
+def getinput():
+    input1 = e.get()
+    return input1
+
+def mainit():
+    yo = getinput()
+    #input1 = input('Type in a word: ')
+    for letter in yo:
+            for symbol in CODE[letter.upper()]:
+                if symbol == '-':
+                    dash()
+                elif symbol == '.':
+                    dot()
+                else:
+                    time.sleep(0.5)
+            time.sleep(0.5)
+
+root = Tk()
+e = Entry(root, width=12)
+e.pack()
+clickButton = Button(root, text = "GO", command = mainit, height =2 , width = 6) 
+clickButton.pack()
+
+def dot():
+    GPIO.output(ledPin,1)
+    time.sleep(0.2)
+    GPIO.output(ledPin,0)
+    time.sleep(0.2)
+
+def dash():
+    GPIO.output(ledPin,1)
+    time.sleep(0.5)
+    GPIO.output(ledPin,0)
+    time.sleep(0.2)
+    
+def justclick():
+    print ('')
+
+
+while True:
+    root.mainloop()
